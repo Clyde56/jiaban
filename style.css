@@ -1,0 +1,217 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px;
+    overflow: hidden;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 20px;
+}
+header h1 {
+    color: #2d3436;
+    margin-bottom: 10px;
+}
+header .subtitle {
+    color: #636e72;
+    font-size: 0.95em;
+}
+
+.control-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.control-panel h2 {
+    color: #0984e3;
+    flex-grow: 1;
+    text-align: center;
+}
+.control-panel button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0984e3;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.control-panel button:hover {
+    background-color: #0770c4;
+    transform: translateY(-2px);
+}
+.control-panel .reset-btn {
+    background-color: #e17055;
+}
+.control-panel .reset-btn:hover {
+    background-color: #d63031;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+.weekday {
+    text-align: center;
+    font-weight: bold;
+    color: #636e72;
+    padding: 15px 5px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+.day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: bold;
+    position: relative;
+    user-select: none;
+}
+.day:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.day .date-num {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+.day .status-text {
+    font-size: 0.75em;
+    opacity: 0.9;
+}
+
+/* 日期状态样式 */
+.day.normal {
+    background-color: #dfe6e9;
+    color: #636e72;
+}
+.day.half {
+    background-color: #ffeaa7;
+    color: #e17055;
+}
+.day.full {
+    background-color: #fab1a0;
+    color: #d63031;
+}
+.day.other-month {
+    background-color: #f8f9fa;
+    color: #b2bec3;
+    cursor: default;
+}
+.day.other-month:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.stats-panel {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+.stat-box, .legend {
+    flex: 1;
+    min-width: 250px;
+}
+.stat-box h3, .legend h3 {
+    color: #2d3436;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ddd;
+}
+.stat-box p {
+    margin-bottom: 8px;
+    color: #636e72;
+}
+.stat-box p span {
+    font-weight: bold;
+    color: #0984e3;
+}
+.hint {
+    font-size: 0.85em;
+    color: #b2bec3 !important;
+    font-style: italic;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.day-box {
+    width: 25px;
+    height: 25px;
+    border-radius: 6px;
+    margin-right: 12px;
+    border: 2px solid rgba(255,255,255,0.7);
+}
+.day-box.normal { background-color: #dfe6e9; }
+.day-box.half { background-color: #ffeaa7; }
+.day-box.full { background-color: #fab1a0; }
+
+footer {
+    text-align: center;
+    color: #636e72;
+    font-size: 0.9em;
+    border-top: 1px solid #eaeaea;
+    padding-top: 20px;
+}
+footer button {
+    margin: 10px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: #00b894;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+footer button:hover {
+    background-color: #00a085;
+}
+#export-data { background-color: #00b894; }
+#import-data { background-color: #6c5ce7; }
+#import-data:hover { background-color: #5b4fcf; }
