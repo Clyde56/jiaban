@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人月度加班记录器</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-clock"></i> 我的加班日历</h1>
+            <p class="subtitle">点击日期切换状态：未加班 → 半天 → 全天</p>
+        </header>
+
+        <main>
+            <div class="control-panel">
+                <button id="prev-month"><i class="fas fa-chevron-left"></i> 上月</button>
+                <h2 id="current-month">2025年12月</h2>
+                <button id="next-month">下月 <i class="fas fa-chevron-right"></i></button>
+                <button id="reset-month" class="reset-btn"><i class="fas fa-redo"></i> 重置本月</button>
+            </div>
+
+            <div class="calendar" id="calendar">
+                <!-- 日历网格将由JavaScript动态生成 -->
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-box">
+                    <h3><i class="fas fa-calendar-day"></i> 本月统计</h3>
+                    <p>全天加班: <span id="count-full">0</span> 天</p>
+                    <p>半天加班: <span id="count-half">0</span> 天</p>
+                    <p>总计加班: <span id="count-total">0</span> 天</p>
+                    <p class="hint">(1全天 = 2半天)</p>
+                </div>
+                <div class="legend">
+                    <h3><i class="fas fa-key"></i> 图例</h3>
+                    <div class="legend-item"><span class="day-box normal"></span> 未加班/休息</div>
+                    <div class="legend-item"><span class="day-box half"></span> 加半天班</div>
+                    <div class="legend-item"><span class="day-box full"></span> 加全天班</div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>数据保存在你的浏览器本地，清空浏览器缓存会丢失记录。</p>
+            <button id="export-data"><i class="fas fa-download"></i> 导出本月数据 (JSON)</button>
+            <button id="import-data"><i class="fas fa-upload"></i> 导入数据</button>
+            <input type="file" id="file-input" accept=".json" style="display: none;">
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
