@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人月度加班记录器</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">   
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="container">
@@ -13,7 +14,51 @@
             <h1><i class="fas fa-clock"></i> 我的加班日历</h1>
             <p class="subtitle">点击日期切换状态：未加班 → 半天 → 全天</p>
         </header>
+ 
+<!-- 在container内添加登录状态栏 -->
+<div class="auth-bar">
+  <div id="user-info" style="display: none;">
+    <span id="user-email"></span>
+    <button id="logout-btn" class="auth-btn">退出登录</button>
+  </div>
+  <div id="guest-info">
+    <button id="login-btn" class="auth-btn">登录</button>
+    <button id="register-btn" class="auth-btn">注册</button>
+  </div>
+</div>
 
+<!-- 登录模态框 -->
+<div id="login-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>登录</h2>
+    <form id="login-form">
+      <label for="login-email">邮箱:</label>
+      <input type="email" id="login-email" required>
+      <label for="login-password">密码:</label>
+      <input type="password" id="login-password" required>
+      <button type="submit">登录</button>
+    </form>
+  </div>
+</div>
+
+<!-- 注册模态框 -->
+<div id="register-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>注册</h2>
+    <form id="register-form">
+      <label for="register-email">邮箱:</label>
+      <input type="email" id="register-email" required>
+      <label for="register-password">密码:</label>
+      <input type="password" id="register-password" required>
+      <label for="confirm-password">确认密码:</label>
+      <input type="password" id="confirm-password" required>
+      <button type="submit">注册</button>
+    </form>
+  </div>
+</div>
+ 
         <main>
             <div class="control-panel">
                 <button id="prev-month"><i class="fas fa-chevron-left"></i> 上月</button>
