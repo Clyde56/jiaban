@@ -1201,50 +1201,56 @@
             }
 
             // 11. 生成Markdown格式内容
-            function generateMarkdown(year, month, monthData) {
-                const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
-                                   '七月', '八月', '九月', '十月', '十一月', '十二月'];
-                const monthName = monthNames[month - 1];
-                
-                let markdown = `# ${year}年${monthName}加班记录\n\n`;
-                markdown += `> 生成时间: ${new Date().toLocaleString('zh-CN')}\n\n`;
-                
-                // 统计信息
-                let fullDays = 0, halfDays = 0;
-                for (const day in monthData) {
-                    if (monthData[day] === 'full') fullDays++;
-                    if (monthData[day] === 'half') halfDays++;
-                }
-                const totalDays = fullDays + (halfDays / 2);
-                
-                markdown += `## 统计信息\n\n`;
-                markdown += `- **全天加班**: ${fullDays} 天\n`;
-                markdown += `- **半天加班**: ${halfDays} 天\n`;
-                markdown += `- **总计加班**: ${totalDays.toFixed(1)} 天 (1全天 = 2半天)\n\n`;
-                
-                // 加班详情表格
-                markdown += `## 加班详情\n\n`;
-                markdown += `| 日期 | 星期 | 加班状态 |\n`;
-                markdown += `|------|------|----------|\n`;
-                
-                // 获取该月第一天和最后一天
-                const firstDay = new Date(year, month - 1, 1);
-                const lastDay = new Date(year, month, 0);
-                const daysInMonth = lastDay.getDate();
-                const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
-                
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const date = new Date(year, month - 1, day);
-                    const weekday = weekdays[date.getDay()];
-                    const status = monthData[day] || '未加班';
-                    const statusText = status === 'full' ? '全天' : 
-                                     status === 'half' ? '半天' : '未加班';
-                    
-                    markdown += `| ${month}月${day}日 | 星期${weekday} | ${statusText} |\n`;
-                }
-                
-                return markdown;
-            }
+function generateMarkdown(year, month, monthData) {
+    const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
+                       '七月', '八月', '九月', '十月', '十一月', '十二月'];
+    const monthName = monthNames[month - 1];
+    
+    let markdown = `# ${year}年${monthName}加班记录\n\n`;
+    markdown += `> 生成时间: ${new Date().toLocaleString('zh-CN')}\n\n`;
+    
+    // 统计信息
+    let fullDays = 0, halfDays = 0;
+    for (const day in monthData) {
+        if (monthData[day] === 'full') fullDays++;
+        if (monthData[day] === 'half') halfDays++;
+    }
+    const totalDays = fullDays + (halfDays / 2);
+    
+    markdown += `## 统计信息\n\n`;
+    markdown += `- **全天加班**: ${fullDays} 天\n`;
+    markdown += `- **半天加班**: ${halfDays} 天\n`;
+    markdown += `- **总计加班**: ${totalDays.toFixed(1)} 天 (1全天 = 2半天)\n\n`;
+    
+    // 加班详情表格 —— 只显示有加班的天
+    markdown += `## 加班详情\n\n`;
+    
+    const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+    
+    // 获取有加班记录的日期，转为数字并排序
+    const overtimeDays = Object.keys(monthData)
+        .map(Number)
+        .sort((a, b) => a - b);
+    
+    if (overtimeDays.length === 0) {
+        markdown += `*本月暂无加班记录*\n\n`;
+    } else {
+        markdown += `| 日期 | 星期 | 加班状态 |\n`;
+        markdown += `|------|------|----------|\n`;
+        
+        for (const day of overtimeDays) {
+            const date = new Date(year, month - 1, day);
+            const weekday = weekdays[date.getDay()];
+            const status = monthData[day];
+            const statusText = status === 'full' ? '全天' : '半天';
+            
+            markdown += `| ${month}月${day}日 | 星期${weekday} | ${statusText} |\n`;
+        }
+    }
+    
+    return markdown;
+}
+
 
             // 12. 从文件导入数据
             function importData(event) {
